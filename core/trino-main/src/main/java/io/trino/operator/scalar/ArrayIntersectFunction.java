@@ -31,8 +31,9 @@ import static io.trino.spi.function.InvocationConvention.InvocationArgumentConve
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.OperatorType.HASH_CODE;
 import static io.trino.spi.function.OperatorType.IDENTICAL;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
-@ScalarFunction(value = "array_intersect", neverFails = true)
+@ScalarFunction(value = "array_intersect", mayFail = NEVER)
 @Description("Intersects elements of the two given arrays")
 public final class ArrayIntersectFunction
 {

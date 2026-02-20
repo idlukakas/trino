@@ -20,6 +20,7 @@ import io.trino.spi.function.SqlType;
 import io.trino.spi.type.StandardTypes;
 
 import static io.trino.spi.StandardErrorCode.INVALID_FUNCTION_ARGUMENT;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
 public final class BitwiseFunctions
 {
@@ -52,7 +53,7 @@ public final class BitwiseFunctions
     }
 
     @Description("Bitwise NOT in 2's complement arithmetic")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long bitwiseNot(@SqlType(StandardTypes.BIGINT) long num)
     {
@@ -60,7 +61,7 @@ public final class BitwiseFunctions
     }
 
     @Description("Bitwise AND in 2's complement arithmetic")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long bitwiseAnd(@SqlType(StandardTypes.BIGINT) long left, @SqlType(StandardTypes.BIGINT) long right)
     {
@@ -68,7 +69,7 @@ public final class BitwiseFunctions
     }
 
     @Description("Bitwise OR in 2's complement arithmetic")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long bitwiseOr(@SqlType(StandardTypes.BIGINT) long left, @SqlType(StandardTypes.BIGINT) long right)
     {
@@ -76,7 +77,7 @@ public final class BitwiseFunctions
     }
 
     @Description("Bitwise XOR in 2's complement arithmetic")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long bitwiseXor(@SqlType(StandardTypes.BIGINT) long left, @SqlType(StandardTypes.BIGINT) long right)
     {
@@ -84,7 +85,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise left shift")
-    @ScalarFunction(value = "bitwise_left_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_left_shift", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long bitwiseLeftShiftTinyint(@SqlType(StandardTypes.TINYINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -96,7 +97,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise left shift")
-    @ScalarFunction(value = "bitwise_left_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_left_shift", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long bitwiseLeftShiftSmallint(@SqlType(StandardTypes.SMALLINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -108,7 +109,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise left shift")
-    @ScalarFunction(value = "bitwise_left_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_left_shift", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long bitwiseLeftShiftInteger(@SqlType(StandardTypes.INTEGER) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -120,7 +121,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise left shift")
-    @ScalarFunction(value = "bitwise_left_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_left_shift", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long bitwiseLeftShiftBigint(@SqlType(StandardTypes.BIGINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -141,7 +142,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise logical right shift")
-    @ScalarFunction(value = "bitwise_right_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long bitwiseRightShiftTinyint(@SqlType(StandardTypes.TINYINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -155,7 +156,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise logical right shift")
-    @ScalarFunction(value = "bitwise_right_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long bitwiseRightShiftSmallint(@SqlType(StandardTypes.SMALLINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -169,7 +170,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise logical right shift")
-    @ScalarFunction(value = "bitwise_right_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long bitwiseRightShiftInteger(@SqlType(StandardTypes.INTEGER) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -183,7 +184,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise logical right shift")
-    @ScalarFunction(value = "bitwise_right_shift", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long bitwiseRightShiftBigint(@SqlType(StandardTypes.BIGINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -194,7 +195,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise arithmetic right shift")
-    @ScalarFunction(value = "bitwise_right_shift_arithmetic", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift_arithmetic", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long bitwiseRightShiftArithmeticTinyint(@SqlType(StandardTypes.TINYINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -208,7 +209,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise arithmetic right shift")
-    @ScalarFunction(value = "bitwise_right_shift_arithmetic", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift_arithmetic", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long bitwiseRightShiftArithmeticSmallint(@SqlType(StandardTypes.SMALLINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -222,7 +223,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise arithmetic right shift")
-    @ScalarFunction(value = "bitwise_right_shift_arithmetic", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift_arithmetic", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long bitwiseRightShiftArithmeticInteger(@SqlType(StandardTypes.INTEGER) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {
@@ -236,7 +237,7 @@ public final class BitwiseFunctions
     }
 
     @Description("bitwise arithmetic right shift")
-    @ScalarFunction(value = "bitwise_right_shift_arithmetic", neverFails = true)
+    @ScalarFunction(value = "bitwise_right_shift_arithmetic", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long bitwiseRightShiftArithmeticBigint(@SqlType(StandardTypes.BIGINT) long value, @SqlType(StandardTypes.INTEGER) long shift)
     {

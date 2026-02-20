@@ -21,10 +21,11 @@ import io.trino.spi.type.LongTimestamp;
 import io.trino.spi.type.StandardTypes;
 import org.joda.time.chrono.ISOChronology;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.type.DateTimes.scaleEpochMicrosToMillis;
 
 @Description("Day of the month of the given timestamp")
-@ScalarFunction(value = "day", alias = "day_of_month", neverFails = true)
+@ScalarFunction(value = "day", alias = "day_of_month", mayFail = NEVER)
 public final class ExtractDay
 {
     private ExtractDay() {}

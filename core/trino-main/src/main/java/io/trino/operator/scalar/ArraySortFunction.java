@@ -26,8 +26,9 @@ import it.unimi.dsi.fastutil.ints.IntArrays;
 import static io.trino.spi.function.InvocationConvention.InvocationArgumentConvention.BLOCK_POSITION_NOT_NULL;
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.OperatorType.COMPARISON_UNORDERED_LAST;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
-@ScalarFunction(value = "array_sort", neverFails = true)
+@ScalarFunction(value = "array_sort", mayFail = NEVER)
 @Description("Sorts the given array in ascending order according to the natural ordering of its elements.")
 public final class ArraySortFunction
 {

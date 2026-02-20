@@ -20,8 +20,10 @@ import io.trino.spi.function.SqlType;
 import io.trino.spi.function.TypeParameter;
 import io.trino.spi.type.StandardTypes;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
+
 @Description("Returns the cardinality (length) of the array")
-@ScalarFunction(value = "cardinality", neverFails = true)
+@ScalarFunction(value = "cardinality", mayFail = NEVER)
 public final class ArrayCardinalityFunction
 {
     private ArrayCardinalityFunction() {}

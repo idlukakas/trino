@@ -21,11 +21,12 @@ import io.trino.spi.type.LongTimestamp;
 import io.trino.spi.type.StandardTypes;
 import org.joda.time.chrono.ISOChronology;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.type.DateTimes.scaleEpochMicrosToMillis;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Description("Last day of the month of the given timestamp")
-@ScalarFunction(value = "last_day_of_month", neverFails = true)
+@ScalarFunction(value = "last_day_of_month", mayFail = NEVER)
 public final class LastDayOfMonth
 {
     private static final int MILLISECONDS_IN_DAY = 24 * 3600 * 1000;

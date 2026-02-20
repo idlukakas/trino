@@ -21,10 +21,11 @@ import io.trino.spi.function.TypeParameter;
 import io.trino.spi.function.TypeParameterSpecialization;
 import io.trino.spi.type.Type;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static java.lang.Boolean.TRUE;
 
 @Description("Return array containing elements that match the given predicate")
-@ScalarFunction(value = "filter", neverFails = true)
+@ScalarFunction(value = "filter", mayFail = NEVER)
 public final class ArrayFilterFunction
 {
     private ArrayFilterFunction() {}

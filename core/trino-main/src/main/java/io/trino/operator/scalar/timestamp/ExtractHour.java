@@ -21,10 +21,11 @@ import io.trino.spi.type.LongTimestamp;
 import io.trino.spi.type.StandardTypes;
 import org.joda.time.chrono.ISOChronology;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.type.DateTimes.scaleEpochMicrosToMillis;
 
 @Description("Hour of the day of the given timestamp")
-@ScalarFunction(value = "hour", neverFails = true)
+@ScalarFunction(value = "hour", mayFail = NEVER)
 public final class ExtractHour
 {
     private ExtractHour() {}

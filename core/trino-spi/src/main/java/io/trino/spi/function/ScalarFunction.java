@@ -18,6 +18,7 @@ import com.google.errorprone.annotations.Keep;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.UNDEFINED;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -39,5 +40,12 @@ public @interface ScalarFunction
      * Describes whether function never throws any exception
      * for any possible combination of input arguments.
      */
-    boolean neverFails() default false;
+    MayFail mayFail() default UNDEFINED;
+
+    enum MayFail
+    {
+        NEVER,
+        POSSIBLY,
+        UNDEFINED;
+    }
 }

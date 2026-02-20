@@ -27,6 +27,7 @@ import static io.airlift.slice.Slices.utf8Slice;
 import static io.airlift.slice.Slices.wrappedBuffer;
 import static io.trino.spi.StandardErrorCode.INVALID_CAST_ARGUMENT;
 import static io.trino.spi.function.OperatorType.CAST;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.UuidType.javaUuidToTrinoUuid;
 import static io.trino.spi.type.UuidType.trinoUuidToJavaUuid;
 import static java.lang.String.format;
@@ -37,7 +38,7 @@ public final class UuidOperators
     private UuidOperators() {}
 
     @Description("Generates a random UUID")
-    @ScalarFunction(deterministic = false, neverFails = true)
+    @ScalarFunction(deterministic = false, mayFail = NEVER)
     @SqlType(StandardTypes.UUID)
     public static Slice uuid()
     {

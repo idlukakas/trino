@@ -30,6 +30,7 @@ import static com.google.common.base.CaseFormat.LOWER_UNDERSCORE;
 import static com.google.common.base.Preconditions.checkArgument;
 import static io.trino.metadata.OperatorNameUtil.mangleOperatorName;
 import static io.trino.operator.annotations.FunctionsParserHelper.parseDescription;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static java.util.Objects.requireNonNull;
 
 public class ScalarHeader
@@ -76,7 +77,7 @@ public class ScalarHeader
 
         if (scalarFunction != null) {
             String baseName = scalarFunction.value().isEmpty() ? camelToSnake(annotatedName(annotated)) : scalarFunction.value();
-            builder.add(new ScalarHeader(baseName, ImmutableSet.copyOf(scalarFunction.alias()), description, scalarFunction.hidden(), scalarFunction.deterministic(), scalarFunction.neverFails()));
+            builder.add(new ScalarHeader(baseName, ImmutableSet.copyOf(scalarFunction.alias()), description, scalarFunction.hidden(), scalarFunction.deterministic(), scalarFunction.mayFail() == NEVER));
         }
 
         if (scalarOperator != null) {

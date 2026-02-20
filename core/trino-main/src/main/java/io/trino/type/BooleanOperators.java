@@ -25,6 +25,7 @@ import io.trino.spi.type.StandardTypes;
 
 import static io.trino.spi.StandardErrorCode.INVALID_CAST_ARGUMENT;
 import static io.trino.spi.function.OperatorType.CAST;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static java.lang.Float.floatToRawIntBits;
 import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.US_ASCII;
@@ -92,7 +93,7 @@ public final class BooleanOperators
     }
 
     @SqlType(StandardTypes.BOOLEAN)
-    @ScalarFunction(value = "$not", hidden = true, neverFails = true) // TODO: this should not be callable from SQL
+    @ScalarFunction(value = "$not", hidden = true, mayFail = NEVER) // TODO: this should not be callable from SQL
     public static boolean not(@SqlType(StandardTypes.BOOLEAN) boolean value)
     {
         return !value;

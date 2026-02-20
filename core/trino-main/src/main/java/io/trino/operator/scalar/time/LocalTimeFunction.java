@@ -22,12 +22,13 @@ import io.trino.spi.function.SqlType;
 
 import java.time.LocalDateTime;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.TimeType.MAX_PRECISION;
 import static io.trino.type.DateTimes.PICOSECONDS_PER_DAY;
 import static io.trino.type.DateTimes.PICOSECONDS_PER_NANOSECOND;
 import static io.trino.type.DateTimes.round;
 
-@ScalarFunction(value = "$localtime", hidden = true, neverFails = true)
+@ScalarFunction(value = "$localtime", hidden = true, mayFail = NEVER)
 public final class LocalTimeFunction
 {
     private LocalTimeFunction() {}

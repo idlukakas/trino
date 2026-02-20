@@ -21,10 +21,11 @@ import io.trino.spi.type.LongTimestamp;
 import io.trino.spi.type.StandardTypes;
 import org.joda.time.chrono.ISOChronology;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.type.DateTimes.scaleEpochMicrosToMillis;
 
 @Description("Second of the minute of the given timestamp")
-@ScalarFunction(value = "second", neverFails = true)
+@ScalarFunction(value = "second", mayFail = NEVER)
 public final class ExtractSecond
 {
     private ExtractSecond() {}

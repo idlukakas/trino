@@ -33,9 +33,10 @@ import static io.trino.spi.function.InvocationConvention.InvocationArgumentConve
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.OperatorType.HASH_CODE;
 import static io.trino.spi.function.OperatorType.IDENTICAL;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.BigintType.BIGINT;
 
-@ScalarFunction(value = "array_distinct", neverFails = true)
+@ScalarFunction(value = "array_distinct", mayFail = NEVER)
 @Description("Remove duplicate values from the given array")
 public final class ArrayDistinctFunction
 {

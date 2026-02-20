@@ -36,9 +36,10 @@ import static io.trino.spi.function.InvocationConvention.InvocationArgumentConve
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.BLOCK_BUILDER;
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FLAT_RETURN;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
 @Description("Return a map containing the counts of the elements in the array")
-@ScalarFunction(value = "array_histogram", neverFails = true)
+@ScalarFunction(value = "array_histogram", mayFail = NEVER)
 public final class ArrayHistogramFunction
 {
     private ArrayHistogramFunction() {}

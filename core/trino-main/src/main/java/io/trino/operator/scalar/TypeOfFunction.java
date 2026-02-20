@@ -23,9 +23,10 @@ import io.trino.spi.type.StandardTypes;
 import io.trino.spi.type.Type;
 
 import static io.airlift.slice.Slices.utf8Slice;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
 @Description("Textual representation of expression type")
-@ScalarFunction(value = "typeof", neverFails = true)
+@ScalarFunction(value = "typeof", mayFail = NEVER)
 public final class TypeOfFunction
 {
     private TypeOfFunction() {}

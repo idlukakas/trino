@@ -23,6 +23,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import static io.airlift.slice.Slices.utf8Slice;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
 public final class FormatNumberFunction
 {
@@ -40,7 +41,7 @@ public final class FormatNumberFunction
         format1Number.setRoundingMode(RoundingMode.HALF_UP);
     }
 
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @Description("Formats large number using a unit symbol")
     @SqlType(StandardTypes.VARCHAR)
     public Slice formatNumber(@SqlType(StandardTypes.BIGINT) long value)
@@ -48,7 +49,7 @@ public final class FormatNumberFunction
         return utf8Slice(format(value));
     }
 
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @Description("Formats large number using a unit symbol")
     @SqlType(StandardTypes.VARCHAR)
     public Slice formatNumber(@SqlType(StandardTypes.DOUBLE) double value)

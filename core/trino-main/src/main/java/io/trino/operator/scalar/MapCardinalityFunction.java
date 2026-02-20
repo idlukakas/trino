@@ -20,7 +20,9 @@ import io.trino.spi.function.SqlType;
 import io.trino.spi.function.TypeParameter;
 import io.trino.spi.type.StandardTypes;
 
-@ScalarFunction(value = "cardinality", neverFails = true)
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
+
+@ScalarFunction(value = "cardinality", mayFail = NEVER)
 @Description("Returns the cardinality (the number of key-value pairs) of the map")
 public final class MapCardinalityFunction
 {

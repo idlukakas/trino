@@ -21,11 +21,12 @@ import io.trino.spi.type.LongTimestamp;
 import io.trino.spi.type.StandardTypes;
 
 import static io.trino.spi.function.OperatorType.CAST;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.type.DateTimes.MICROSECONDS_PER_DAY;
 import static java.lang.Math.floorDiv;
 
 @ScalarOperator(CAST)
-@ScalarFunction(value = "date", neverFails = true)
+@ScalarFunction(value = "date", mayFail = NEVER)
 public final class TimestampToDateCast
 {
     private TimestampToDateCast() {}

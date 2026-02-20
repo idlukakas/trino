@@ -27,6 +27,7 @@ import java.util.Optional;
 import static io.airlift.slice.SliceUtf8.getCodePointAt;
 import static io.airlift.slice.SliceUtf8.lengthOfCodePoint;
 import static io.trino.spi.StandardErrorCode.INVALID_FUNCTION_ARGUMENT;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.Chars.padSpaces;
 import static io.trino.util.Failures.checkCondition;
 
@@ -37,7 +38,7 @@ public final class LikeFunctions
 
     private LikeFunctions() {}
 
-    @ScalarFunction(value = LIKE_FUNCTION_NAME, hidden = true, neverFails = true)
+    @ScalarFunction(value = LIKE_FUNCTION_NAME, hidden = true, mayFail = NEVER)
     @LiteralParameters("x")
     @SqlType(StandardTypes.BOOLEAN)
     public static boolean likeChar(@LiteralParameter("x") Long x, @SqlType("char(x)") Slice value, @SqlType(LikePatternType.NAME) LikePattern pattern)
@@ -46,7 +47,7 @@ public final class LikeFunctions
     }
 
     // TODO: this should not be callable from SQL
-    @ScalarFunction(value = LIKE_FUNCTION_NAME, hidden = true, neverFails = true)
+    @ScalarFunction(value = LIKE_FUNCTION_NAME, hidden = true, mayFail = NEVER)
     @LiteralParameters("x")
     @SqlType(StandardTypes.BOOLEAN)
     public static boolean likeVarchar(@SqlType("varchar(x)") Slice value, @SqlType(LikePatternType.NAME) LikePattern pattern)

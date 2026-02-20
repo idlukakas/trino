@@ -21,10 +21,11 @@ import io.trino.spi.type.LongTimestamp;
 import io.trino.spi.type.StandardTypes;
 import org.joda.time.chrono.ISOChronology;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.type.DateTimes.scaleEpochMicrosToMillis;
 
 @Description("Week of the year of the given timestamp")
-@ScalarFunction(value = "week", alias = "week_of_year", neverFails = true)
+@ScalarFunction(value = "week", alias = "week_of_year", mayFail = NEVER)
 public final class ExtractWeekOfYear
 {
     private ExtractWeekOfYear() {}

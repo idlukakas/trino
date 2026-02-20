@@ -34,9 +34,10 @@ import static io.trino.spi.function.InvocationConvention.InvocationArgumentConve
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.OperatorType.HASH_CODE;
 import static io.trino.spi.function.OperatorType.IDENTICAL;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.BigintType.BIGINT;
 
-@ScalarFunction(value = "array_union", neverFails = true)
+@ScalarFunction(value = "array_union", mayFail = NEVER)
 @Description("Union elements of the two given arrays")
 public final class ArrayUnionFunction
 {

@@ -52,6 +52,7 @@ import java.util.function.Function;
 import static io.airlift.slice.Slices.utf8Slice;
 import static io.trino.operator.scalar.QuarterOfYearDateTimeField.QUARTER_OF_YEAR;
 import static io.trino.spi.StandardErrorCode.INVALID_FUNCTION_ARGUMENT;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.DateTimeEncoding.packDateTimeWithZone;
 import static io.trino.spi.type.Int128Math.rescale;
 import static io.trino.spi.type.TimeZoneKey.getTimeZoneKeyForOffset;
@@ -110,7 +111,7 @@ public final class DateTimeFunctions
 
     private DateTimeFunctions() {}
 
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @Description("Current timestamp with time zone")
     @SqlType("timestamp(3) with time zone")
     public static long now(ConnectorSession session)
@@ -119,7 +120,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Current date")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DATE)
     public static long currentDate(ConnectorSession session)
     {
@@ -132,7 +133,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Current time zone")
-    @ScalarFunction(value = "current_timezone", neverFails = true)
+    @ScalarFunction(value = "current_timezone", mayFail = NEVER)
     @SqlType(StandardTypes.VARCHAR)
     public static Slice currentTimeZone(ConnectorSession session)
     {
@@ -449,7 +450,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Millisecond of the second of the given interval")
-    @ScalarFunction(value = "millisecond", neverFails = true)
+    @ScalarFunction(value = "millisecond", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long millisecondFromInterval(@SqlType(StandardTypes.INTERVAL_DAY_TO_SECOND) long milliseconds)
     {
@@ -457,7 +458,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Second of the minute of the given interval")
-    @ScalarFunction(value = "second", neverFails = true)
+    @ScalarFunction(value = "second", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long secondFromInterval(@SqlType(StandardTypes.INTERVAL_DAY_TO_SECOND) long milliseconds)
     {
@@ -465,7 +466,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Minute of the hour of the given interval")
-    @ScalarFunction(value = "minute", neverFails = true)
+    @ScalarFunction(value = "minute", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long minuteFromInterval(@SqlType(StandardTypes.INTERVAL_DAY_TO_SECOND) long milliseconds)
     {
@@ -473,7 +474,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Hour of the day of the given interval")
-    @ScalarFunction(value = "hour", neverFails = true)
+    @ScalarFunction(value = "hour", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long hourFromInterval(@SqlType(StandardTypes.INTERVAL_DAY_TO_SECOND) long milliseconds)
     {
@@ -481,7 +482,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Day of the week of the given date")
-    @ScalarFunction(value = "day_of_week", alias = "dow", neverFails = true)
+    @ScalarFunction(value = "day_of_week", alias = "dow", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long dayOfWeekFromDate(@SqlType(StandardTypes.DATE) long date)
     {
@@ -489,7 +490,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Day of the month of the given date")
-    @ScalarFunction(value = "day", alias = "day_of_month", neverFails = true)
+    @ScalarFunction(value = "day", alias = "day_of_month", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long dayFromDate(@SqlType(StandardTypes.DATE) long date)
     {
@@ -497,7 +498,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Day of the month of the given interval")
-    @ScalarFunction(value = "day", alias = "day_of_month", neverFails = true)
+    @ScalarFunction(value = "day", alias = "day_of_month", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long dayFromInterval(@SqlType(StandardTypes.INTERVAL_DAY_TO_SECOND) long milliseconds)
     {
@@ -514,7 +515,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Day of the year of the given date")
-    @ScalarFunction(value = "day_of_year", alias = "doy", neverFails = true)
+    @ScalarFunction(value = "day_of_year", alias = "doy", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long dayOfYearFromDate(@SqlType(StandardTypes.DATE) long date)
     {
@@ -522,7 +523,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Week of the year of the given date")
-    @ScalarFunction(value = "week", alias = "week_of_year", neverFails = true)
+    @ScalarFunction(value = "week", alias = "week_of_year", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long weekFromDate(@SqlType(StandardTypes.DATE) long date)
     {
@@ -538,7 +539,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Month of the year of the given date")
-    @ScalarFunction(value = "month", neverFails = true)
+    @ScalarFunction(value = "month", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long monthFromDate(@SqlType(StandardTypes.DATE) long date)
     {
@@ -546,7 +547,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Month of the year of the given interval")
-    @ScalarFunction(value = "month", neverFails = true)
+    @ScalarFunction(value = "month", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long monthFromInterval(@SqlType(StandardTypes.INTERVAL_YEAR_TO_MONTH) long months)
     {
@@ -554,7 +555,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Quarter of the year of the given date")
-    @ScalarFunction(value = "quarter", neverFails = true)
+    @ScalarFunction(value = "quarter", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long quarterFromDate(@SqlType(StandardTypes.DATE) long date)
     {
@@ -562,7 +563,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Year of the given date")
-    @ScalarFunction(value = "year", neverFails = true)
+    @ScalarFunction(value = "year", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long yearFromDate(@SqlType(StandardTypes.DATE) long date)
     {
@@ -570,7 +571,7 @@ public final class DateTimeFunctions
     }
 
     @Description("Year of the given interval")
-    @ScalarFunction(value = "year", neverFails = true)
+    @ScalarFunction(value = "year", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long yearFromInterval(@SqlType(StandardTypes.INTERVAL_YEAR_TO_MONTH) long months)
     {

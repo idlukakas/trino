@@ -29,9 +29,10 @@ import static io.trino.spi.function.InvocationConvention.InvocationArgumentConve
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.OperatorType.HASH_CODE;
 import static io.trino.spi.function.OperatorType.IDENTICAL;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static java.lang.Math.min;
 
-@ScalarFunction(value = "array_except", neverFails = true)
+@ScalarFunction(value = "array_except", mayFail = NEVER)
 @Description("Returns an array of elements that are in the first array but not the second, without duplicates.")
 public final class ArrayExceptFunction
 {

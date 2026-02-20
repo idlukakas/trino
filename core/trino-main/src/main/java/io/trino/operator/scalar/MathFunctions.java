@@ -53,6 +53,7 @@ import static io.trino.spi.function.InvocationConvention.InvocationReturnConvent
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.NULLABLE_RETURN;
 import static io.trino.spi.function.OperatorType.HASH_CODE;
 import static io.trino.spi.function.OperatorType.IDENTICAL;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.Decimals.longTenToNth;
 import static io.trino.spi.type.Decimals.overflows;
 import static io.trino.spi.type.DoubleType.DOUBLE;
@@ -134,14 +135,14 @@ public final class MathFunctions
     }
 
     @Description("Absolute value")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double abs(@SqlType(StandardTypes.DOUBLE) double num)
     {
         return Math.abs(num);
     }
 
-    @ScalarFunction(value = "abs", neverFails = true)
+    @ScalarFunction(value = "abs", mayFail = NEVER)
     @Description("Absolute value")
     public static final class Abs
     {
@@ -166,7 +167,7 @@ public final class MathFunctions
     }
 
     @Description("Absolute value")
-    @ScalarFunction(value = "abs", neverFails = true)
+    @ScalarFunction(value = "abs", mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long absFloat(@SqlType(StandardTypes.REAL) long num)
     {
@@ -174,7 +175,7 @@ public final class MathFunctions
     }
 
     @Description("Arc cosine")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double acos(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -182,7 +183,7 @@ public final class MathFunctions
     }
 
     @Description("Arc sine")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double asin(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -190,7 +191,7 @@ public final class MathFunctions
     }
 
     @Description("Arc tangent")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double atan(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -198,7 +199,7 @@ public final class MathFunctions
     }
 
     @Description("Arc tangent of given fraction")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double atan2(@SqlType(StandardTypes.DOUBLE) double num1, @SqlType(StandardTypes.DOUBLE) double num2)
     {
@@ -206,7 +207,7 @@ public final class MathFunctions
     }
 
     @Description("Cube root")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double cbrt(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -214,7 +215,7 @@ public final class MathFunctions
     }
 
     @Description("Round up to nearest integer")
-    @ScalarFunction(value = "ceiling", alias = "ceil", neverFails = true)
+    @ScalarFunction(value = "ceiling", alias = "ceil", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long ceilingTinyint(@SqlType(StandardTypes.TINYINT) long num)
     {
@@ -222,7 +223,7 @@ public final class MathFunctions
     }
 
     @Description("Round up to nearest integer")
-    @ScalarFunction(value = "ceiling", alias = "ceil", neverFails = true)
+    @ScalarFunction(value = "ceiling", alias = "ceil", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long ceilingSmallint(@SqlType(StandardTypes.SMALLINT) long num)
     {
@@ -230,7 +231,7 @@ public final class MathFunctions
     }
 
     @Description("Round up to nearest integer")
-    @ScalarFunction(value = "ceiling", alias = "ceil", neverFails = true)
+    @ScalarFunction(value = "ceiling", alias = "ceil", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long ceilingInteger(@SqlType(StandardTypes.INTEGER) long num)
     {
@@ -238,7 +239,7 @@ public final class MathFunctions
     }
 
     @Description("Round up to nearest integer")
-    @ScalarFunction(alias = "ceil", neverFails = true)
+    @ScalarFunction(alias = "ceil", mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long ceiling(@SqlType(StandardTypes.BIGINT) long num)
     {
@@ -246,7 +247,7 @@ public final class MathFunctions
     }
 
     @Description("Round up to nearest integer")
-    @ScalarFunction(alias = "ceil", neverFails = true)
+    @ScalarFunction(alias = "ceil", mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double ceiling(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -254,14 +255,14 @@ public final class MathFunctions
     }
 
     @Description("Round up to nearest integer")
-    @ScalarFunction(value = "ceiling", alias = "ceil", neverFails = true)
+    @ScalarFunction(value = "ceiling", alias = "ceil", mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long ceilingFloat(@SqlType(StandardTypes.REAL) long num)
     {
         return floatToRawIntBits((float) ceiling(intBitsToFloat((int) num)));
     }
 
-    @ScalarFunction(value = "ceiling", alias = "ceil", neverFails = true)
+    @ScalarFunction(value = "ceiling", alias = "ceil", mayFail = NEVER)
     @Description("Round up to nearest integer")
     public static final class Ceiling
     {
@@ -310,7 +311,7 @@ public final class MathFunctions
     }
 
     @Description("Round to integer by dropping digits after decimal point")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double truncate(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -318,7 +319,7 @@ public final class MathFunctions
     }
 
     @Description("Round to integer by dropping digits after decimal point")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long truncate(@SqlType(StandardTypes.REAL) long num)
     {
@@ -327,7 +328,7 @@ public final class MathFunctions
     }
 
     @Description("Cosine")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double cos(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -335,7 +336,7 @@ public final class MathFunctions
     }
 
     @Description("Hyperbolic cosine")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double cosh(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -343,7 +344,7 @@ public final class MathFunctions
     }
 
     @Description("Converts an angle in radians to degrees")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double degrees(@SqlType(StandardTypes.DOUBLE) double radians)
     {
@@ -351,7 +352,7 @@ public final class MathFunctions
     }
 
     @Description("Euler's number")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double e()
     {
@@ -359,7 +360,7 @@ public final class MathFunctions
     }
 
     @Description("Euler's number raised to the given power")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double exp(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -367,7 +368,7 @@ public final class MathFunctions
     }
 
     @Description("Round down to nearest integer")
-    @ScalarFunction(value = "floor", neverFails = true)
+    @ScalarFunction(value = "floor", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long floorTinyint(@SqlType(StandardTypes.TINYINT) long num)
     {
@@ -375,7 +376,7 @@ public final class MathFunctions
     }
 
     @Description("Round down to nearest integer")
-    @ScalarFunction(value = "floor", neverFails = true)
+    @ScalarFunction(value = "floor", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long floorSmallint(@SqlType(StandardTypes.SMALLINT) long num)
     {
@@ -383,7 +384,7 @@ public final class MathFunctions
     }
 
     @Description("Round down to nearest integer")
-    @ScalarFunction(value = "floor", neverFails = true)
+    @ScalarFunction(value = "floor", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long floorInteger(@SqlType(StandardTypes.INTEGER) long num)
     {
@@ -391,7 +392,7 @@ public final class MathFunctions
     }
 
     @Description("Round down to nearest integer")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long floor(@SqlType(StandardTypes.BIGINT) long num)
     {
@@ -399,14 +400,14 @@ public final class MathFunctions
     }
 
     @Description("Round down to nearest integer")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double floor(@SqlType(StandardTypes.DOUBLE) double num)
     {
         return Math.floor(num);
     }
 
-    @ScalarFunction(value = "floor", neverFails = true)
+    @ScalarFunction(value = "floor", mayFail = NEVER)
     @Description("Round down to nearest integer")
     public static final class Floor
     {
@@ -455,7 +456,7 @@ public final class MathFunctions
     }
 
     @Description("Round down to nearest integer")
-    @ScalarFunction(value = "floor", neverFails = true)
+    @ScalarFunction(value = "floor", mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long floorFloat(@SqlType(StandardTypes.REAL) long num)
     {
@@ -463,7 +464,7 @@ public final class MathFunctions
     }
 
     @Description("Natural logarithm")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double ln(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -471,7 +472,7 @@ public final class MathFunctions
     }
 
     @Description("Logarithm to given base")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double log(@SqlType(StandardTypes.DOUBLE) double base, @SqlType(StandardTypes.DOUBLE) double number)
     {
@@ -479,7 +480,7 @@ public final class MathFunctions
     }
 
     @Description("Logarithm to base 2")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double log2(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -487,7 +488,7 @@ public final class MathFunctions
     }
 
     @Description("Logarithm to base 10")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double log10(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -495,7 +496,7 @@ public final class MathFunctions
     }
 
     @Description("Remainder of given quotient")
-    @ScalarFunction(value = "mod", neverFails = true)
+    @ScalarFunction(value = "mod", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long modTinyint(@SqlType(StandardTypes.TINYINT) long num1, @SqlType(StandardTypes.TINYINT) long num2)
     {
@@ -503,7 +504,7 @@ public final class MathFunctions
     }
 
     @Description("Remainder of given quotient")
-    @ScalarFunction(value = "mod", neverFails = true)
+    @ScalarFunction(value = "mod", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long modSmallint(@SqlType(StandardTypes.SMALLINT) long num1, @SqlType(StandardTypes.SMALLINT) long num2)
     {
@@ -511,7 +512,7 @@ public final class MathFunctions
     }
 
     @Description("Remainder of given quotient")
-    @ScalarFunction(value = "mod", neverFails = true)
+    @ScalarFunction(value = "mod", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long modInteger(@SqlType(StandardTypes.INTEGER) long num1, @SqlType(StandardTypes.INTEGER) long num2)
     {
@@ -519,7 +520,7 @@ public final class MathFunctions
     }
 
     @Description("Remainder of given quotient")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long mod(@SqlType(StandardTypes.BIGINT) long num1, @SqlType(StandardTypes.BIGINT) long num2)
     {
@@ -527,7 +528,7 @@ public final class MathFunctions
     }
 
     @Description("Remainder of given quotient")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double mod(@SqlType(StandardTypes.DOUBLE) double num1, @SqlType(StandardTypes.DOUBLE) double num2)
     {
@@ -540,7 +541,7 @@ public final class MathFunctions
     }
 
     @Description("Remainder of given quotient")
-    @ScalarFunction(value = "mod", neverFails = true)
+    @ScalarFunction(value = "mod", mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long modFloat(@SqlType(StandardTypes.REAL) long num1, @SqlType(StandardTypes.REAL) long num2)
     {
@@ -548,7 +549,7 @@ public final class MathFunctions
     }
 
     @Description("The constant Pi")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double pi()
     {
@@ -556,7 +557,7 @@ public final class MathFunctions
     }
 
     @Description("Value raised to the power of exponent")
-    @ScalarFunction(alias = "pow", neverFails = true)
+    @ScalarFunction(alias = "pow", mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double power(@SqlType(StandardTypes.DOUBLE) double num, @SqlType(StandardTypes.DOUBLE) double exponent)
     {
@@ -564,7 +565,7 @@ public final class MathFunctions
     }
 
     @Description("Converts an angle in degrees to radians")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double radians(@SqlType(StandardTypes.DOUBLE) double degrees)
     {
@@ -572,7 +573,7 @@ public final class MathFunctions
     }
 
     @Description("A pseudo-random value")
-    @ScalarFunction(alias = "rand", deterministic = false, neverFails = true)
+    @ScalarFunction(alias = "rand", deterministic = false, mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double random()
     {
@@ -729,7 +730,7 @@ public final class MathFunctions
     }
 
     @Description("Round to nearest integer")
-    @ScalarFunction(value = "round", neverFails = true)
+    @ScalarFunction(value = "round", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long roundTinyint(@SqlType(StandardTypes.TINYINT) long num)
     {
@@ -737,7 +738,7 @@ public final class MathFunctions
     }
 
     @Description("Round to nearest integer")
-    @ScalarFunction(value = "round", neverFails = true)
+    @ScalarFunction(value = "round", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long roundSmallint(@SqlType(StandardTypes.SMALLINT) long num)
     {
@@ -745,7 +746,7 @@ public final class MathFunctions
     }
 
     @Description("Round to nearest integer")
-    @ScalarFunction(value = "round", neverFails = true)
+    @ScalarFunction(value = "round", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long roundInteger(@SqlType(StandardTypes.INTEGER) long num)
     {
@@ -753,7 +754,7 @@ public final class MathFunctions
     }
 
     @Description("Round to nearest integer")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long round(@SqlType(StandardTypes.BIGINT) long num)
     {
@@ -826,7 +827,7 @@ public final class MathFunctions
     }
 
     @Description("Round to nearest integer")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double round(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -834,7 +835,7 @@ public final class MathFunctions
     }
 
     @Description("Round to given number of decimal places")
-    @ScalarFunction(value = "round", neverFails = true)
+    @ScalarFunction(value = "round", mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long roundReal(@SqlType(StandardTypes.REAL) long num)
     {
@@ -842,7 +843,7 @@ public final class MathFunctions
     }
 
     @Description("Round to given number of decimal places")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double round(@SqlType(StandardTypes.DOUBLE) double num, @SqlType(StandardTypes.INTEGER) long decimals)
     {
@@ -868,7 +869,7 @@ public final class MathFunctions
     }
 
     @Description("Round to given number of decimal places")
-    @ScalarFunction(value = "round", neverFails = true)
+    @ScalarFunction(value = "round", mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long roundReal(@SqlType(StandardTypes.REAL) long num, @SqlType(StandardTypes.INTEGER) long decimals)
     {
@@ -898,7 +899,7 @@ public final class MathFunctions
         return floatToRawIntBits(resultAsFloat);
     }
 
-    @ScalarFunction(value = "round", neverFails = true)
+    @ScalarFunction(value = "round", mayFail = NEVER)
     @Description("Round to nearest integer")
     public static final class Round
     {
@@ -1021,7 +1022,7 @@ public final class MathFunctions
         }
     }
 
-    @ScalarFunction(value = "truncate", neverFails = true)
+    @ScalarFunction(value = "truncate", mayFail = NEVER)
     @Description("Round to integer by dropping digits after decimal point")
     public static final class Truncate
     {
@@ -1064,7 +1065,7 @@ public final class MathFunctions
         }
     }
 
-    @ScalarFunction(value = "truncate", neverFails = true)
+    @ScalarFunction(value = "truncate", mayFail = NEVER)
     @Description("Round to integer by dropping given number of digits after decimal point")
     public static final class TruncateN
     {
@@ -1110,7 +1111,7 @@ public final class MathFunctions
     }
 
     @Description("Signum")
-    @ScalarFunction(value = "sign", neverFails = true)
+    @ScalarFunction(value = "sign", mayFail = NEVER)
     public static final class Sign
     {
         private Sign() {}
@@ -1136,7 +1137,7 @@ public final class MathFunctions
         }
     }
 
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BIGINT)
     public static long sign(@SqlType(StandardTypes.BIGINT) long num)
     {
@@ -1144,7 +1145,7 @@ public final class MathFunctions
     }
 
     @Description("Signum")
-    @ScalarFunction(value = "sign", neverFails = true)
+    @ScalarFunction(value = "sign", mayFail = NEVER)
     @SqlType(StandardTypes.INTEGER)
     public static long signInteger(@SqlType(StandardTypes.INTEGER) long num)
     {
@@ -1152,7 +1153,7 @@ public final class MathFunctions
     }
 
     @Description("Signum")
-    @ScalarFunction(value = "sign", neverFails = true)
+    @ScalarFunction(value = "sign", mayFail = NEVER)
     @SqlType(StandardTypes.SMALLINT)
     public static long signSmallint(@SqlType(StandardTypes.SMALLINT) long num)
     {
@@ -1160,7 +1161,7 @@ public final class MathFunctions
     }
 
     @Description("Signum")
-    @ScalarFunction(value = "sign", neverFails = true)
+    @ScalarFunction(value = "sign", mayFail = NEVER)
     @SqlType(StandardTypes.TINYINT)
     public static long signTinyint(@SqlType(StandardTypes.TINYINT) long num)
     {
@@ -1168,7 +1169,7 @@ public final class MathFunctions
     }
 
     @Description("Signum")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double sign(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1176,7 +1177,7 @@ public final class MathFunctions
     }
 
     @Description("Signum")
-    @ScalarFunction(value = "sign", neverFails = true)
+    @ScalarFunction(value = "sign", mayFail = NEVER)
     @SqlType(StandardTypes.REAL)
     public static long signFloat(@SqlType(StandardTypes.REAL) long num)
     {
@@ -1184,7 +1185,7 @@ public final class MathFunctions
     }
 
     @Description("Sine")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double sin(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1192,7 +1193,7 @@ public final class MathFunctions
     }
 
     @Description("Hyperbolic sine")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double sinh(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1200,7 +1201,7 @@ public final class MathFunctions
     }
 
     @Description("Square root")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double sqrt(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1208,7 +1209,7 @@ public final class MathFunctions
     }
 
     @Description("Tangent")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double tan(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1216,7 +1217,7 @@ public final class MathFunctions
     }
 
     @Description("Hyperbolic tangent")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double tanh(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1224,7 +1225,7 @@ public final class MathFunctions
     }
 
     @Description("Test if value is not-a-number")
-    @ScalarFunction(value = "is_nan", neverFails = true)
+    @ScalarFunction(value = "is_nan", mayFail = NEVER)
     @SqlType(StandardTypes.BOOLEAN)
     public static boolean isNaN(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1232,7 +1233,7 @@ public final class MathFunctions
     }
 
     @Description("Test if value is not-a-number")
-    @ScalarFunction(value = "is_nan", neverFails = true)
+    @ScalarFunction(value = "is_nan", mayFail = NEVER)
     @SqlType(StandardTypes.BOOLEAN)
     public static boolean isNaNReal(@SqlType(StandardTypes.REAL) long value)
     {
@@ -1241,7 +1242,7 @@ public final class MathFunctions
     }
 
     @Description("Test if value is finite")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BOOLEAN)
     public static boolean isFinite(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1249,7 +1250,7 @@ public final class MathFunctions
     }
 
     @Description("Test if value is infinite")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.BOOLEAN)
     public static boolean isInfinite(@SqlType(StandardTypes.DOUBLE) double num)
     {
@@ -1257,7 +1258,7 @@ public final class MathFunctions
     }
 
     @Description("Constant representing not-a-number")
-    @ScalarFunction(value = "nan", neverFails = true)
+    @ScalarFunction(value = "nan", mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double nan()
     {
@@ -1265,7 +1266,7 @@ public final class MathFunctions
     }
 
     @Description("Infinity")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlType(StandardTypes.DOUBLE)
     public static double infinity()
     {
@@ -1380,7 +1381,7 @@ public final class MathFunctions
     }
 
     @Description("Cosine similarity between the given sparse vectors")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlNullable
     @SqlType(StandardTypes.DOUBLE)
     public static Double cosineSimilarity(
@@ -1408,7 +1409,7 @@ public final class MathFunctions
     }
 
     @Description("Calculates the cosine distance between the give sparse vectors")
-    @ScalarFunction(neverFails = true)
+    @ScalarFunction(mayFail = NEVER)
     @SqlNullable
     @SqlType(StandardTypes.DOUBLE)
     public static Double cosineDistance(

@@ -27,13 +27,14 @@ import io.trino.spi.type.StandardTypes;
 import java.util.Set;
 
 import static io.airlift.slice.Slices.utf8Slice;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.spi.type.VarcharType.VARCHAR;
 
 public final class SessionFunctions
 {
     private SessionFunctions() {}
 
-    @ScalarFunction(value = "$current_user", hidden = true, neverFails = true)
+    @ScalarFunction(value = "$current_user", hidden = true, mayFail = NEVER)
     @Description("Current user")
     @SqlType(StandardTypes.VARCHAR)
     public static Slice currentUser(ConnectorSession session)
@@ -41,7 +42,7 @@ public final class SessionFunctions
         return utf8Slice(session.getUser());
     }
 
-    @ScalarFunction(value = "$current_path", hidden = true, neverFails = true)
+    @ScalarFunction(value = "$current_path", hidden = true, mayFail = NEVER)
     @Description("Retrieve current path")
     @SqlType(StandardTypes.VARCHAR)
     public static Slice currentPath(ConnectorSession session)
@@ -50,7 +51,7 @@ public final class SessionFunctions
         return utf8Slice(((FullConnectorSession) session).getSession().getPath().toString());
     }
 
-    @ScalarFunction(value = "$current_catalog", hidden = true, neverFails = true)
+    @ScalarFunction(value = "$current_catalog", hidden = true, mayFail = NEVER)
     @Description("Current catalog")
     @SqlType(StandardTypes.VARCHAR)
     public static Slice currentCatalog(ConnectorSession session)
@@ -60,7 +61,7 @@ public final class SessionFunctions
                 .orElse(null);
     }
 
-    @ScalarFunction(value = "$current_schema", hidden = true, neverFails = true)
+    @ScalarFunction(value = "$current_schema", hidden = true, mayFail = NEVER)
     @Description("Current schema")
     @SqlType(StandardTypes.VARCHAR)
     public static Slice currentSchema(ConnectorSession session)
@@ -70,7 +71,7 @@ public final class SessionFunctions
                 .orElse(null);
     }
 
-    @ScalarFunction(value = "current_groups", neverFails = true)
+    @ScalarFunction(value = "current_groups", mayFail = NEVER)
     @Description("Current groups of current user")
     @SqlType("array(varchar)")
     public static Block currentGroups(ConnectorSession session)

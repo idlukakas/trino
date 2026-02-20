@@ -22,9 +22,10 @@ import io.trino.spi.type.MapType;
 import io.trino.spi.type.Type;
 
 import static io.trino.spi.block.MapValueBuilder.buildMapValue;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
 @Description("Creates an empty map")
-@ScalarFunction(value = "map", neverFails = true)
+@ScalarFunction(value = "map", mayFail = NEVER)
 public final class EmptyMapConstructor
 {
     private final SqlMap emptyMap;

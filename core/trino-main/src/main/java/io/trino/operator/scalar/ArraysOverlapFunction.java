@@ -28,8 +28,9 @@ import static io.trino.spi.function.InvocationConvention.InvocationArgumentConve
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.OperatorType.HASH_CODE;
 import static io.trino.spi.function.OperatorType.IDENTICAL;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
-@ScalarFunction(value = "arrays_overlap", neverFails = true)
+@ScalarFunction(value = "arrays_overlap", mayFail = NEVER)
 @Description("Returns true if arrays have common elements")
 public final class ArraysOverlapFunction
 {

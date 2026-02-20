@@ -21,10 +21,11 @@ import io.trino.spi.type.LongTimestamp;
 import io.trino.spi.type.StandardTypes;
 import org.joda.time.chrono.ISOChronology;
 
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static io.trino.type.DateTimes.scaleEpochMicrosToMillis;
 
 @Description("Year of the given timestamp")
-@ScalarFunction(value = "year", neverFails = true)
+@ScalarFunction(value = "year", mayFail = NEVER)
 public final class ExtractYear
 {
     private ExtractYear() {}

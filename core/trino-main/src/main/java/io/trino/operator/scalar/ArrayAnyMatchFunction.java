@@ -28,10 +28,11 @@ import java.lang.invoke.MethodHandle;
 import static io.trino.spi.function.InvocationConvention.InvocationArgumentConvention.BLOCK_POSITION_NOT_NULL;
 import static io.trino.spi.function.InvocationConvention.InvocationReturnConvention.FAIL_ON_NULL;
 import static io.trino.spi.function.OperatorType.READ_VALUE;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 import static java.lang.Boolean.TRUE;
 
 @Description("Returns true if the array contains one or more elements that match the given predicate")
-@ScalarFunction(value = "any_match", neverFails = true)
+@ScalarFunction(value = "any_match", mayFail = NEVER)
 public final class ArrayAnyMatchFunction
 {
     private ArrayAnyMatchFunction() {}

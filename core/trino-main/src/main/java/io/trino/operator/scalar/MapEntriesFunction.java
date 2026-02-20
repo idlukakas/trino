@@ -27,8 +27,9 @@ import io.trino.spi.type.RowType;
 import io.trino.spi.type.Type;
 
 import static com.google.common.base.Verify.verify;
+import static io.trino.spi.function.ScalarFunction.MayFail.NEVER;
 
-@ScalarFunction(value = "map_entries", neverFails = true)
+@ScalarFunction(value = "map_entries", mayFail = NEVER)
 @Description("Construct an array of entries from a given map")
 public class MapEntriesFunction
 {
