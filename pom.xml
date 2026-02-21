@@ -60,6 +60,7 @@
         <module>lib/trino-plugin-toolkit</module>
         <module>lib/trino-record-decoder</module>
         <module>plugin/trino-ai-functions</module>
+        <module>plugin/trino-api-conector</module>
         <module>plugin/trino-base-jdbc</module>
         <module>plugin/trino-bigquery</module>
         <module>plugin/trino-blackhole</module>
@@ -2292,7 +2293,7 @@
             <dependency>
                 <groupId>org.roaringbitmap</groupId>
                 <artifactId>RoaringBitmap</artifactId>
-                <version>1.6.10</version>
+                <version>1.3.0</version>
             </dependency>
 
             <dependency>

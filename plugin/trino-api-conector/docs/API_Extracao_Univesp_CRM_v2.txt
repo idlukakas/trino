@@ -1,0 +1,718 @@
+===== PAGE 1 =====
+Documentação Técnica
+ API de Extração Univesp CRM
+Versão: 2.0.0
+Data: Janeiro 2026
+URL Base: https://crm.api.une.cx
+ Página 1 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 2 =====
+Índice
+1. Autenticação
+2. Limitações Importantes
+3. Endpoints Disponíveis
+4. Guia de Uso dos Endpoints
+4.1. Lista de Leads
+4.2. Lista de Protocolos
+4.3. Lista de Status de Protocolos
+4.4. Lista de Atendimentos
+4.5. Lista de Contatos Chat
+4.6. Lista de Atendimentos Chat
+4.7. Lista de Mensagens de Atendimento Chat
+4.8. Lista de Atendimentos Chatbot
+4.9. Lista de Mensagens de Atendimento Chatbot
+5. Exemplos de Uso com cURL
+6. Tratamento de Erros
+7. Boas Práticas
+8. Diagrama das Tabelas
+9. Suporte
+Página 2 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 3 =====
+1. Autenticação
+1.1. Obter Token JWT
+Antes de fazer qualquer requisição aos endpoints, é necessário obter um token de autenticação JWT.
+Passo 1: Faça uma requisição POST para a URL de autenticação:
+POST https://crm.api.une.cx/api/auth/univesp/key?code=ccukletneonuhfelkejiuqqussufwu
+Código do Cliente Univesp: ccukletneonuhfelkejiuqqussufwu
+Resposta de Sucesso:
+{
+  "cliente": "Univesp",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+■■ Importante:
+ O token tem validade de 1 hora
+ Após a expiração, é necessário gerar um novo token
+ Guarde o token retornado para usar nas requisições subsequentes
+1.2. Usar o Token nas Requisições
+Todas as requisições aos endpoints de consulta devem incluir o token no cabeçalho Authorization:
+Authorization: Bearer <seu_token_aqui>
+Exemplo de cabeçalho HTTP:
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Type: application/json
+Página 3 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 4 =====
+2. Limitações Importantes
+■■ ATENÇÃO - Todas as APIs de consulta têm a seguinte limitação:
+ Período máximo de consulta: 31 dias
+ O intervalo entre data_inicio e data_termino não pode exceder 31 dias
+ Se precisar consultar um período maior, faça múltiplas requisições com intervalos de até
+31 dias
+3. Endpoints Disponíveis
+#
+Endpoint
+Descrição
+Tabela de Origem
+1
+/api/univesp/lista-lead
+Lista de leads
+lead.tbl_lead
+2
+/api/univesp/lista-protocolo
+Lista de protocolos
+operacional.tbl_ProtocoloAtendim
+ento
+3
+/api/univesp/lista-protocolo-status
+Status dos protocolos
+operacional.tbl_ProtocoloAtendim
+entoStatus
+4
+/api/univesp/lista-atendimento
+Lista de atendimentos
+operacional.tbl_AtendimentoLead
+5
+/api/univesp/lista-contato-chat
+Contatos do chat/WhatsApp
+chat.tbl_Contato
+6
+/api/univesp/lista-atendimento-chat
+Atendimentos chat/WhatsApp
+chat.tbl_Fila_Atendimento
+7
+/api/univesp/lista-mensagem-atendimento-
+chat
+Mensagens chat/WhatsApp
+chat.tbl_Mensagens_Atendimento
+8
+/api/univesp/lista-atendimento-chatbot
+Atendimentos do chatbot
+chatbot.tbl_Contato
+9
+/api/univesp/lista-mensagem-atendimento-
+chatbot
+Mensagens do chatbot
+chatbot.tbl_ContatoMensagem
+URL Base: https://crm.api.une.cx
+Página 4 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 5 =====
+4. Guia de Uso dos Endpoints
+Todos os endpoints seguem o mesmo padrão:
+ Método HTTP: POST
+ Content-Type: application/json
+ Autenticação: Bearer Token (obrigatório)
+ Payload: JSON com data_inicio e data_termino
+Formato do Payload:
+{
+  "data_inicio": "YYYY-MM-DD",
+  "data_termino": "YYYY-MM-DD"
+}
+Exemplo:
+{
+  "data_inicio": "2025-12-01",
+  "data_termino": "2025-12-15"
+}
+Formato da Resposta:
+{
+  "success": true,
+  "type": "tipo-do-endpoint",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    // Array com os registros
+  ]
+}
+Página 5 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 6 =====
+4.1. Lista de Leads
+Endpoint: POST https://crm.api.une.cx/api/univesp/lista-lead
+Descrição: Retorna os leads cadastrados no sistema.
+Resposta de Sucesso (200 OK):
+{
+  "success": true,
+  "type": "lista-lead",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_Lead": 8784651,
+      "dt_Criacao": "01/12/2025 07:23:11",
+      "dt_Modificacao": "01/12/2025 07:23:24",
+      "tp_Entrada": 7,
+      "id_Usuario": 2137,
+      "id_Cliente": 591,
+      "id_Funil": 579,
+      "R1": "NOME DO LEAD",
+      "R2": "email@aluno.univesp.br",
+      "R3": 11999999999,
+      "R7": "Univesp01",
+      "R61": "25227015",
+      ...
+    }
+  ]
+}
+Campos Principais:
+ R1: Nome do lead
+ R2: Email
+ R3: Telefone
+ R61: RA (Registro Acadêmico)
+ R7: Origem/Unidade
+Página 6 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 7 =====
+4.2. Lista de Protocolos
+Endpoint: POST https://crm.api.une.cx/api/univesp/lista-protocolo
+Descrição: Retorna os protocolos de atendimento cadastrados.
+Resposta de Sucesso (200 OK):
+{
+  "success": true,
+  "type": "lista-protocolo",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_ProtocoloAtendimento": 655561,
+      "dt_Criacao": "01/12/2025 07:19:11",
+      "dt_Modificacao": "01/12/2025 07:19:12",
+      "tp_Entrada": 1,
+      "id_Lead": 8079016,
+      "ds_Protocolo": "20251201071856592",
+      "id_Departamento": 81,
+      "id_MotivoProtocolo": 34559
+    }
+  ]
+}
+Campos:
+ id_ProtocoloAtendimento: ID único do protocolo
+ ds_Protocolo: Número do protocolo (string)
+ id_Lead: ID do lead relacionado
+ id_Departamento: ID do departamento
+ id_MotivoProtocolo: ID do motivo do protocolo
+4.3. Lista de Status de Protocolos
+Endpoint: POST https://crm.api.une.cx/api/univesp/lista-protocolo-status
+Descrição: Retorna os status/histórico de alterações dos protocolos.
+Resposta de Sucesso (200 OK):
+Página 7 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 8 =====
+{
+  "success": true,
+  "type": "lista-protocolo-status",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_ProtocoloAtendimentoStatus": 1313806,
+      "id_ProtocoloAtendimento": 655561,
+      "dt_Criacao": "01/12/2025 07:19:11",
+      "dt_Modificacao": "01/12/2025 07:19:12",
+      "id_Usuario": 2146,
+      "fl_Ativo": false,
+      "tp_Status": 1
+    }
+  ]
+}
+Página 8 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 9 =====
+4.4. Lista de Atendimentos
+Endpoint: POST https://crm.api.une.cx/api/univesp/lista-atendimento
+Descrição: Retorna os atendimentos realizados no sistema.
+Resposta de Sucesso (200 OK):
+{
+  "success": true,
+  "type": "lista-atendimento",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_AtendimentoLead": 39756498,
+      "dt_Criacao": "01/12/2025 05:39:54",
+      "id_Cliente": 591,
+      "tp_Atendimento": 0,
+      "id_Usuario": 3690,
+      "id_Funil": 579,
+      "id_Lead": 8115948,
+      "id_AtendimentoChat": 0,
+      "id_AtendimentoChatBot": 277269,
+      "ds_Observacao": ""
+    }
+  ]
+}
+Campos Principais:
+ id_AtendimentoLead: ID único do atendimento
+ id_Lead: ID do lead relacionado
+ id_Usuario: ID do usuário que realizou o atendimento
+ id_AtendimentoChat: ID do atendimento de chat (se aplicável)
+ id_AtendimentoChatBot: ID do atendimento de chatbot (se aplicável)
+4.5. Lista de Contatos Chat
+Endpoint: POST https://crm.api.une.cx/api/univesp/lista-contato-chat
+Descrição: Retorna os contatos cadastrados no sistema de chat/WhatsApp.
+Resposta de Sucesso (200 OK):
+ Página 9 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 10 =====
+{
+  "success": true,
+  "type": "lista-contato-chat",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_Contato": 628893,
+      "dt_Cadastro": "01/12/2025 08:01:27",
+      "id_Cliente": 591,
+      "id_Lead": 8747185,
+      "nm_Nome": "Nome do Contato",
+      "nu_Telefone": 11943104711,
+      "ds_Email": "email@exemplo.com",
+      "nu_Cpf": "12345678900"
+    }
+  ]
+}
+Página 10 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 11 =====
+4.6. Lista de Atendimentos Chat
+Endpoint: POST https://crm.api.une.cx/api/univesp/lista-atendimento-chat
+Descrição: Retorna os atendimentos realizados via chat/WhatsApp.
+Resposta de Sucesso (200 OK):
+{
+  "success": true,
+  "type": "lista-atendimento-chat",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_Fila": 703476,
+      "dt_Entrada": "01/12/2025 08:01:27",
+      "id_Campanha": 99,
+      "id_Contato": 628893,
+      "fl_Status": 2,
+      "id_Usuario": 3993,
+      "dt_InicioAtend": "01/12/2025 08:01:28",
+      "dt_FinalAtend": "01/12/2025 08:22:32",
+      "id_Funil": 579,
+      "id_Fase": 1480
+    }
+  ]
+}
+4.7. Lista de Mensagens de Atendimento Chat
+Endpoint: POST
+https://crm.api.une.cx/api/univesp/lista-mensagem-atendimento-chat
+Descrição: Retorna as mensagens trocadas durante os atendimentos de chat/WhatsApp.
+Resposta de Sucesso (200 OK):
+{
+  "success": true,
+  "type": "lista-mensagem-atendimento-chat",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_Mensagens_Atendimento": 11643155,
+      "dt_Mensagem": "01/12/2025 08:01:27",
+      "id_Fila": 703476,
+      "ds_Mensagem": "Bom dia",
+      "fl_Lida": true,
+      "fl_Direcao": 1
+    }
+  ]
+}
+Página 11 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 12 =====
+Campos Principais:
+ fl_Direcao: 1 = mensagem recebida, 0 = mensagem enviada
+Página 12 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 13 =====
+4.8. Lista de Atendimentos Chatbot
+Endpoint: POST https://crm.api.une.cx/api/univesp/lista-atendimento-chatbot
+Descrição: Retorna os atendimentos realizados via chatbot.
+Resposta de Sucesso (200 OK):
+{
+  "success": true,
+  "type": "lista-atendimento-chatbot",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_Contato": 277269,
+      "dt_Criacao": "01/12/2025 05:36:41",
+      "id_Cliente": 591,
+      "fl_Finalizado": true,
+      "dt_Finalizacao": "01/12/2025 05:39:54",
+      "id_Funil": 579,
+      "id_Lead": 8115948,
+      "id_Departamento": 107,
+      "nm_Nome": "Descrição do atendimento",
+      "nu_Telefone": "1141482833",
+      "ds_Dados": "{...}",
+      "ds_Acesso": "{...}"
+    }
+  ]
+}
+4.9. Lista de Mensagens de Atendimento Chatbot
+Endpoint: POST
+https://crm.api.une.cx/api/univesp/lista-mensagem-atendimento-chatbot
+Descrição: Retorna as mensagens trocadas durante os atendimentos do chatbot.
+Resposta de Sucesso (200 OK):
+Página 13 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 14 =====
+{
+  "success": true,
+  "type": "lista-mensagem-atendimento-chatbot",
+  "message": "Requisição processada com sucesso",
+  "data": [
+    {
+      "id_ContatoMensagem": 4812146,
+      "dt_Criacao": "01/12/2025 05:36:41",
+      "id_Contato": 277269,
+      "nu_Ordem": 1,
+      "tp_Mensagem": 4,
+      "tp_Direcao": 1,
+      "nu_Etapa": 1,
+      "ds_Horario": "05:36",
+      "ds_Mensagem": "Olá, seja bem-vindo(a)..."
+    }
+  ]
+}
+Página 14 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 15 =====
+5. Exemplos de Uso com cURL
+5.1. Obter Token
+curl -X POST "https://crm.api.une.cx/api/auth/univesp/key?code=ccukletneonuhfelkejiuqq
+ussufwu"
+5.2. Consultar Leads
+curl -X POST "https://crm.api.une.cx/api/univesp/lista-lead" \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{"data_inicio": "2025-12-01", "data_termino": "2025-12-15"}'
+5.3. Consultar Protocolos
+curl -X POST "https://crm.api.une.cx/api/univesp/lista-protocolo" \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{"data_inicio": "2025-12-01", "data_termino": "2025-12-15"}'
+Página 15 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 16 =====
+6. Tratamento de Erros
+Possíveis Códigos de Status HTTP:
+ 200 OK: Requisição processada com sucesso
+ 401 Unauthorized: Token inválido ou expirado
+ 400 Bad Request: Payload inválido ou período maior que 31 dias
+ 500 Internal Server Error: Erro interno do servidor
+Exemplo de Resposta de Erro:
+{
+  "success": false,
+  "message": "Token expirado ou inválido"
+}
+Solução: Gere um novo token e tente novamente.
+7. Boas Práticas
+1. Gerenciamento de Token:
+ Armazene o token de forma segura
+ Implemente renovação automática antes da expiração (1 hora)
+ Trate erros 401 para regenerar o token automaticamente
+2. Consultas em Lote:
+ Para períodos maiores que 31 dias, divida em múltiplas requisições
+ Implemente rate limiting para evitar sobrecarga
+ Use paginação se disponível
+3. Tratamento de Dados:
+ Valide os dados recebidos antes de processar
+ Trate campos vazios e valores nulos adequadamente
+ Considere o formato de datas retornadas (DD/MM/YYYY HH:mm:ss)
+4. Performance:
+ Cache os tokens enquanto válidos
+ Implemente retry com backoff exponencial para falhas temporárias
+ Processe respostas de forma assíncrona quando possível
+Página 16 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 17 =====
+8. Diagrama das Tabelas
+Abaixo estão os esquemas das tabelas referenciadas nas APIs.
+8.1. lead.tbl_lead
+Coluna
+Tipo
+Descrição
+id_Lead
+int
+Chave primária (PK) e identidade
+id_Cliente
+int
+Chave estrangeira (FK)
+dt_Criacao
+datetime
+Data de criação
+dt_Modificacao
+datetime
+Data de modificação
+tp_Entrada
+int
+Tipo de entrada (Default 0)
+R1
+varchar(500)
+Nome do lead
+R2
+varchar(500)
+Email
+R3
+decimal
+Telefone
+R61
+varchar(500)
+RA (Registro Acadêmico)
+8.2. operacional.tbl_ProtocoloAtendimento
+Coluna
+Tipo
+Descrição
+id_ProtocoloAtendimento
+int
+Chave primária (PK) e identidade
+dt_Criacao
+datetime
+Data de criação
+dt_Modificacao
+datetime
+Data de modificação
+tp_Entrada
+int
+Tipo de entrada
+id_Lead
+int
+Chave estrangeira (FK)
+ds_Protocolo
+varchar(100)
+Número do protocolo
+id_Departamento
+int
+Chave estrangeira (FK)
+id_MotivoProtocolo
+int
+Chave estrangeira (FK)
+8.3. operacional.tbl_ProtocoloAtendimentoStatus
+Coluna
+Tipo
+Descrição
+Página 17 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 18 =====
+id_ProtocoloAtendimentoS
+tatus
+int
+Chave primária (PK) e identidade
+dt_Criacao
+datetime
+Data de criação
+id_Usuario
+int
+ID do usuário
+id_ProtocoloAtendimento
+int
+Chave estrangeira (FK)
+fl_Ativo
+bit
+Flag de status ativo
+tp_Status
+int
+Tipo de status
+Página 18 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 19 =====
+8.4. operacional.tbl_AtendimentoLead
+Coluna
+Tipo
+Descrição
+id_AtendimentoLead
+int
+Chave primária (PK) e identidade
+dt_Criacao
+datetime
+Data de criação
+id_Cliente
+int
+Chave estrangeira (FK)
+id_Usuario
+int
+Chave estrangeira (FK)
+id_Lead
+int
+Chave estrangeira (FK)
+ds_Observacao
+varchar(4000)
+Observação do atendimento
+id_AtendimentoChat
+int
+ID do atendimento de chat
+id_AtendimentoChatBot
+int
+ID do atendimento de chatbot
+8.5. chat.tbl_Contato
+Coluna
+Tipo
+Descrição
+id_Contato
+int
+Chave primária (PK) e identidade
+nm_Nome
+varchar(200)
+Nome do contato
+ds_Email
+varchar(200)
+Email do contato
+nu_Cpf
+varchar(11)
+CPF do contato
+nu_Telefone
+decimal(11,0)
+Telefone do contato
+dt_Cadastro
+datetime
+Data de cadastro
+id_Lead
+int
+Chave estrangeira (FK)
+8.6. chat.tbl_Fila_Atendimento
+Coluna
+Tipo
+Descrição
+id_Fila
+int
+Chave primária (PK) e identidade
+dt_Entrada
+datetime
+Data/hora de entrada na fila
+id_Contato
+int
+Chave estrangeira (FK)
+fl_Status
+int
+Status do atendimento
+id_Usuario
+int
+Chave estrangeira (FK)
+dt_InicioAtend
+datetime
+Data/hora início atendimento
+Página 19 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 20 =====
+dt_FinalAtend
+datetime
+Data/hora fim atendimento
+Página 20 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 21 =====
+8.7. chat.tbl_Mensagens_Atendimento
+Coluna
+Tipo
+Descrição
+id_Mensagens_Atendimento
+int
+Chave primária (PK) e identidade
+dt_Mensagem
+datetime
+Data/hora da mensagem
+id_Fila
+int
+Chave estrangeira (FK)
+ds_Mensagem
+varchar(max)
+Conteúdo da mensagem
+fl_Lida
+bit
+Flag se mensagem foi lida
+fl_Direcao
+int
+1 = recebida, 0 = enviada
+8.8. chatbot.tbl_Contato
+Coluna
+Tipo
+Descrição
+id_Contato
+int
+Chave primária (PK) e identidade
+dt_Criacao
+datetime
+Data de criação
+dt_Finalizacao
+datetime
+Data de finalização
+fl_Finalizado
+bit
+Flag se foi finalizado
+id_Lead
+int
+Chave estrangeira (FK)
+nm_Nome
+varchar(100)
+Nome informado
+nu_Telefone
+varchar(22)
+Telefone
+ds_Dados
+text
+JSON com dados adicionais
+8.9. chatbot.tbl_ContatoMensagem
+Coluna
+Tipo
+Descrição
+id_ContatoMensagem
+int
+Chave primária (PK) e identidade
+dt_Criacao
+datetime
+Data de criação
+id_Contato
+int
+Chave estrangeira (FK)
+nu_Ordem
+int
+Ordem da mensagem
+tp_Direcao
+int
+1 = recebida, 0 = enviada
+nu_Etapa
+int
+Etapa do fluxo
+ds_Mensagem
+text
+Conteúdo da mensagem
+Página 21 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
+===== PAGE 22 =====
+9. Suporte
+Para dúvidas ou problemas com a API, entre em contato com a equipe técnica responsável pela
+integração.
+Documentação gerada em: Janeiro 2026
+Versão da API: 2.0.0
+Une.cx - Soluções Inteligentes de Comunicação
+Página 22 de 22
+Une.cx - Soluções Inteligentes de Comunicação
+
